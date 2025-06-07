@@ -19,6 +19,48 @@
         .search-controls input[type="text"] { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
         .search-controls button { padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; }
         .search-controls button { padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 80%;
+            max-width: 500px;
+            position: relative; /* For positioning the close button */
+            text-align: center; /* Center content like image and text */
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #aaa; /* Lighter color for the close button */
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black; /* Darker on hover/focus for better feedback */
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -53,7 +95,16 @@
                         <p class="talk-meta">
                             <strong>Speakers:</strong>
                             {% for speaker in talk.speakers %}
-                                {{ speaker.firstName }} {{ speaker.lastName }} ({{ speaker.companyName }}){% if not loop.last %}, {% endif %}
+                                <span class="speaker-name"
+                                      data-firstname="{{ speaker.firstName }}"
+                                      data-lastname="{{ speaker.lastName }}"
+                                      data-company="{{ speaker.companyName }}"
+                                      data-bio="{{ speaker.bio | e }}"
+                                      data-imageurl="{{ speaker.imageUrl }}"
+                                      data-talkid="{{ talk.id }}"
+                                      style="cursor: pointer; text-decoration: underline; color: #0056b3;">
+                                    {{ speaker.firstName }} {{ speaker.lastName }}
+                                </span> ({{ speaker.companyName }}){% if not loop.last %}, {% endif %}
                             {% endfor %}
                         </p>
                         <p class="talk-categories talk-meta">
@@ -132,7 +183,53 @@
             // or if we want to handle the "no talks found" message initially if needed.
             // For now, it just ensures consistency.
             filterTalks();
+
+            // Speaker Modal Logic
+            const speakerModal = document.getElementById('speakerModal');
+            const speakerModalImage = document.getElementById('speakerModalImage');
+            const speakerModalName = document.getElementById('speakerModalName');
+            const speakerModalCompany = document.getElementById('speakerModalCompany');
+            const speakerModalBio = document.getElementById('speakerModalBio');
+            const closeButton = speakerModal.querySelector('.close-button');
+            const speakerNameElements = document.querySelectorAll('.speaker-name');
+
+            speakerNameElements.forEach(speakerElement => {
+                speakerElement.addEventListener('click', function() {
+                    // Populate modal
+                    speakerModalName.textContent = `${this.dataset.firstname} ${this.dataset.lastname}`;
+                    speakerModalCompany.textContent = this.dataset.company;
+                    speakerModalBio.textContent = this.dataset.bio;
+                    speakerModalImage.src = this.dataset.imageurl;
+                    speakerModalImage.alt = `Image of ${this.dataset.firstname} ${this.dataset.lastname}`;
+
+                    // Display modal
+                    speakerModal.style.display = 'flex'; // Using flex as per CSS
+                });
+            });
+
+            // Event Listener for Close Button
+            closeButton.addEventListener('click', function() {
+                speakerModal.style.display = 'none';
+            });
+
+            // Event Listener for Clicking Outside Modal
+            window.addEventListener('click', function(event) {
+                if (event.target === speakerModal) {
+                    speakerModal.style.display = 'none';
+                }
+            });
         });
     </script>
+
+    <!-- Speaker Modal HTML -->
+    <div id="speakerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <img id="speakerModalImage" src="" alt="Speaker Image" style="max-width: 150px; border-radius: 50%; margin-bottom: 15px;">
+            <h3 id="speakerModalName" style="margin-bottom: 5px;"></h3>
+            <p id="speakerModalCompany" style="margin-top: 0; margin-bottom: 10px; color: #555;"></p>
+            <p id="speakerModalBio" style="font-size: 0.9em; line-height: 1.5;"></p>
+        </div>
+    </div>
 </body>
 </html>

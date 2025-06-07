@@ -18,7 +18,9 @@
         {
           "firstName": "Priya",
           "lastName": "Sharma",
-          "companyName": "InnovateAI Corp"
+          "companyName": "InnovateAI Corp",
+          "bio": "Priya Sharma is a leading expert in Artificial Intelligence, with over a decade of experience driving innovation at InnovateAI Corp. She specializes in machine learning and natural language processing.",
+          "imageUrl": "https://via.placeholder.com/150/0000FF/FFFFFF?Text=PriyaS"
         }
       ],
       "categories": ["AI", "Machine Learning", "Future Tech"]
@@ -34,7 +36,9 @@
         {
           "firstName": "Raj",
           "lastName": "Patel",
-          "companyName": "CloudScale Solutions"
+          "companyName": "CloudScale Solutions",
+          "bio": "Raj Patel is a seasoned cloud architect with expertise in building scalable and resilient infrastructure. He is passionate about microservices and DevOps practices.",
+          "imageUrl": "https://via.placeholder.com/150/FF0000/FFFFFF?Text=RajP"
         }
       ],
       "categories": ["Web Development", "Microservices", "Architecture"]
@@ -50,7 +54,9 @@
         {
           "firstName": "Ananya",
           "lastName": "Singh",
-          "companyName": "SecureNet Systems"
+          "companyName": "SecureNet Systems",
+          "bio": "Ananya Singh is a cybersecurity expert with a focus on IoT security. She has extensive experience in ethical hacking and vulnerability assessment.",
+          "imageUrl": "https://via.placeholder.com/150/00FF00/FFFFFF?Text=AnanyaS"
         }
       ],
       "categories": ["Cybersecurity", "IoT", "Network Security"]
@@ -66,7 +72,9 @@
         {
           "firstName": "Vikram",
           "lastName": "Rao",
-          "companyName": "DataDriven Inc."
+          "companyName": "DataDriven Inc.",
+          "bio": "Vikram Rao is a data scientist and big data evangelist. He helps organizations leverage data analytics to drive business growth and innovation.",
+          "imageUrl": "https://via.placeholder.com/150/FFFF00/000000?Text=VikramR"
         }
       ],
       "categories": ["Big Data", "Data Analytics", "Business Intelligence"]
@@ -82,7 +90,9 @@
         {
           "firstName": "Meera",
           "lastName": "Desai",
-          "companyName": "QuantumLeap Tech"
+          "companyName": "QuantumLeap Tech",
+          "bio": "Meera Desai is a quantum physicist and researcher at the forefront of quantum computing. She is dedicated to advancing the field and exploring its potential applications.",
+          "imageUrl": "https://via.placeholder.com/150/00FFFF/000000?Text=MeeraD"
         }
       ],
       "categories": ["Quantum Computing", "Future Tech", "Physics"]
