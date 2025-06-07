@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event_info.get('eventName', 'Event Details') }}</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #0056b3; }
+        p { line-height: 1.6; }
+        strong { color: #004085; }
+        .talks-section { margin-top: 30px; }
+        .talk { background-color: #e9ecef; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        .talk h2 { margin-top: 0; color: #0056b3; }
+        .talk-meta { font-size: 0.9em; color: #555; }
+        .talk-categories span { background-color: #007bff; color: white; padding: 3px 7px; border-radius: 3px; margin-right: 5px; font-size: 0.8em; }
+        .search-controls { margin-bottom: 20px; padding: 15px; background-color: #e9ecef; border-radius: 5px; }
+        .search-controls input[type="text"] { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .search-controls button { padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .search-controls button { padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if event_info %}
+            <h1>{{ event_info.eventName }}</h1>
+            <p><strong>Date:</strong> {{ event_info.date }}</p>
+            <p><strong>Time:</strong> {{ event_info.time }}</p>
+            <p><strong>Venue:</strong> {{ event_info.venue }}</p>
+            <p><strong>Description:</strong> {{ event_info.description }}</p>
+        {% else %}
+            <h1>Event Information Not Available</h1>
+            <p>Please check if the event_data.json file is correctly formatted and accessible.</p>
+        {% endif %}
+
+        <div class="search-controls">
+            <h2>Search Talks</h2>
+            <input type="text" id="searchInput" placeholder="Search by title, speaker, category, or keyword...">
+            <button id="clearSearchBtn">Clear</button>
+        </div>
+
+        <div class="talks-section">
+            <h2>Talk Schedule</h2>
+            {% if talks %}
+                {% for talk in talks %}
+                    <div class="talk">
+                        <h2>{{ talk.title }}</h2>
+                        <p class="talk-meta">
+                            <strong>Time:</strong> {{ talk.startTime }} - {{ talk.endTime }} ({{ talk.duration }})
+                        </p>
+                        <p>{{ talk.description }}</p>
+                        <p class="talk-meta">
+                            <strong>Speakers:</strong>
+                            {% for speaker in talk.speakers %}
+                                {{ speaker.firstName }} {{ speaker.lastName }} ({{ speaker.companyName }}){% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="talk-categories talk-meta">
+                            <strong>Categories:</strong> {% for category in talk.categories %}<span>{{ category }}</span>{% endfor %}
+                        </p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No talks scheduled for this event yet.</p>
+            {% endif %}
+            <p id="noResultsMessage" style="display:none; text-align: center; margin-top: 20px; font-style: italic;">No talks found matching your criteria.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const talksSection = document.querySelector('.talks-section');
+            const clearSearchBtn = document.getElementById('clearSearchBtn');
+            const allTalks = Array.from(talksSection.getElementsByClassName('talk'));
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            function filterTalks() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleTalksCount = 0;
+
+                allTalks.forEach(function (talkElement) {
+                    const title = talkElement.querySelector('h2').textContent.toLowerCase();
+                    const description = talkElement.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // Assuming description is the second <p>
+                    
+                    let speakersText = '';
+                    const speakerElements = talkElement.querySelectorAll('p.talk-meta strong');
+                    speakerElements.forEach(function(strongEl) {
+                        if (strongEl.textContent.includes('Speakers:')) {
+                            // Get the text content of the parent <p> tag and remove "Speakers:"
+                            speakersText = strongEl.parentNode.textContent.replace('Speakers:', '').toLowerCase().trim();
+                        }
+                    });
+
+                    let categoriesText = '';
+                    const categorySpans = talkElement.querySelectorAll('.talk-categories span');
+                    categorySpans.forEach(function (span) {
+                        categoriesText += span.textContent.toLowerCase() + ' ';
+                    });
+                    categoriesText = categoriesText.trim();
+
+                    const isVisible = title.includes(searchTerm) ||
+                                      description.includes(searchTerm) ||
+                                      speakersText.includes(searchTerm) ||
+                                      categoriesText.includes(searchTerm);
+
+                    if (isVisible) {
+                        talkElement.style.display = ''; // Show the talk
+                        visibleTalksCount++;
+                    } else {
+                        talkElement.style.display = 'none'; // Hide the talk
+                    }
+                });
+
+                // Show or hide the "no results" message
+                if (visibleTalksCount === 0 && searchTerm !== '') {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
+            }
+
+            searchInput.addEventListener('keyup', filterTalks);
+
+            clearSearchBtn.addEventListener('click', function() {
+                searchInput.value = ''; // Clear the input field
+                filterTalks(); // Re-run the filter (which will now show all talks)
+            });
+
+            // Initial filter call in case there's pre-filled text (e.g. browser auto-fill)
+            // or if we want to handle the "no talks found" message initially if needed.
+            // For now, it just ensures consistency.
+            filterTalks();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+{
+  "eventInfo": {
+    "eventName": "TechConnect 2025: Innovate & Inspire",
+    "date": "October 26, 2025",
+    "time": "9:00 AM - 5:00 PM IST",
+    "venue": "Grand Summit Hall, Tech Hub Convention Center, Mumbai, India",
+    "description": "A single-track, 1-day technical event featuring talks on various cutting-edge technologies and industry trends. Join us for a day of learning, networking, and inspiration as we explore the future of technology."
+  },
+  "talks": [
+    {
+      "id": "talk001",
+      "title": "The Future of AI: Trends and Predictions",
+      "description": "An in-depth look at the upcoming trends in Artificial Intelligence, including advancements in machine learning, natural language processing, and computer vision. We will explore potential impacts across various industries.",
+      "startTime": "09:30 AM",
+      "endTime": "10:30 AM",
+      "duration": "60 minutes",
+      "speakers": [
+        {
+          "firstName": "Priya",
+          "lastName": "Sharma",
+          "companyName": "InnovateAI Corp"
+        }
+      ],
+      "categories": ["AI", "Machine Learning", "Future Tech"]
+    },
+    {
+      "id": "talk002",
+      "title": "Building Scalable Web Applications with Microservices",
+      "description": "This talk will cover the principles of microservices architecture and how to apply them to build robust and scalable web applications. We will discuss best practices, common pitfalls, and tools for managing microservices.",
+      "startTime": "10:45 AM",
+      "endTime": "11:45 AM",
+      "duration": "60 minutes",
+      "speakers": [
+        {
+          "firstName": "Raj",
+          "lastName": "Patel",
+          "companyName": "CloudScale Solutions"
+        }
+      ],
+      "categories": ["Web Development", "Microservices", "Architecture"]
+    },
+    {
+      "id": "talk003",
+      "title": "Cybersecurity in the Age of IoT",
+      "description": "Exploring the unique cybersecurity challenges posed by the Internet of Things (IoT). This session will cover threat landscapes, security frameworks, and best practices for securing IoT devices and networks.",
+      "startTime": "12:00 PM",
+      "endTime": "01:00 PM",
+      "duration": "60 minutes",
+      "speakers": [
+        {
+          "firstName": "Ananya",
+          "lastName": "Singh",
+          "companyName": "SecureNet Systems"
+        }
+      ],
+      "categories": ["Cybersecurity", "IoT", "Network Security"]
+    },
+    {
+      "id": "talk004",
+      "title": "Leveraging Big Data for Business Insights",
+      "description": "Discover how organizations can harness the power of big data analytics to gain valuable insights, make data-driven decisions, and achieve competitive advantage. We'll look at tools, techniques, and real-world case studies.",
+      "startTime": "02:00 PM",
+      "endTime": "03:00 PM",
+      "duration": "60 minutes",
+      "speakers": [
+        {
+          "firstName": "Vikram",
+          "lastName": "Rao",
+          "companyName": "DataDriven Inc."
+        }
+      ],
+      "categories": ["Big Data", "Data Analytics", "Business Intelligence"]
+    },
+    {
+      "id": "talk005",
+      "title": "The Rise of Quantum Computing",
+      "description": "An introduction to the fascinating world of quantum computing. This talk will explain the basic principles, potential applications, and the current state of quantum technology.",
+      "startTime": "03:15 PM",
+      "endTime": "04:15 PM",
+      "duration": "60 minutes",
+      "speakers": [
+        {
+          "firstName": "Meera",
+          "lastName": "Desai",
+          "companyName": "QuantumLeap Tech"
+        }
+      ],
+      "categories": ["Quantum Computing", "Future Tech", "Physics"]
+    }
+  ]
+}
