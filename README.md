@@ -23,7 +23,29 @@ The application is built using Python with the Flask framework for the backend a
     *   **Case-Insensitive Search (FR3.6):** Search is not case-sensitive.
     *   **Clear Search (FR3.7):** A button to clear the search input and reset the talk list.
     *   **No Results Message:** Displays a message if no talks match the search criteria.
+*   **Speaker Information Modal (FR5.0):**
+    *   Clicking on a speaker's name in the talk details now opens a modal window.
+    *   The modal displays the speaker's full name, company, a short biography, and their image.
 *   **Deployment Ready (FR4.0):** Configured for deployment to Google Cloud Run.
+
+## Data Structure (`event_data.json`)
+
+The `event_data.json` file contains the core data for the event and talks. The `talks` array includes a list of talk objects, and each talk object can have one or more speakers. The structure for a speaker object within the `talk.speakers` array has been updated as follows:
+
+```json
+{
+  "firstName": "Priya",
+  "lastName": "Sharma",
+  "companyName": "InnovateAI Corp",
+  "bio": "A short biography of the speaker. This field contains a string, which can include details about the speaker's expertise, experience, and contributions.",
+  "imageUrl": "A URL to the speaker's image (e.g., https://via.placeholder.com/150/0000FF/FFFFFF?Text=PriyaS)"
+}
+```
+*   `firstName`: The first name of the speaker.
+*   `lastName`: The last name of the speaker.
+*   `companyName`: The company or organization the speaker is affiliated with.
+*   `bio`: A textual biography of the speaker.
+*   `imageUrl`: A direct URL to an image of the speaker.
 
 ## Technologies Used
 
